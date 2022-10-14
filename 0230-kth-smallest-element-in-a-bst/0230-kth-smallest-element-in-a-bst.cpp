@@ -11,15 +11,23 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode* node, int &k){
-        if(!node)return -1;
-        int left =dfs(node->left, k);
-        if(left!= -1) return left;
-        if(k-- == 1) return node->val;
-        int right = dfs(node->right, k);
-        return right;
-    }
     int kthSmallest(TreeNode* root, int k) {
-        return dfs(root, k);
+        stack<TreeNode*> stk;
+        TreeNode* node = root;
+        while(node || !stk.empty()){
+            if(node){
+                stk.push(node);
+                node= node->left;
+            }else{
+                node = stk.top();
+                stk.pop();
+                if(k == 1){
+                    return node->val;
+                }
+                k--;
+                node = node->right;
+            }
+        }
+        return -1;
     }
 };
