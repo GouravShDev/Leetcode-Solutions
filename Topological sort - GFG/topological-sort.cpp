@@ -10,7 +10,6 @@ class Solution
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    vector<int> inDegree(V);
-	    vector<int> visited(V);
 	    queue<int> q;
 	    for(int i =0 ; i < V ; i++){
 	        for(auto &nd : adj[i]){
@@ -27,11 +26,10 @@ class Solution
 	        int node = q.front();
 	        topo.push_back(node);
 	        q.pop();
-	        for(auto &nd : adj[node]){
-	            if(!visited[nd]){
-	                inDegree[nd]--;
-	                if(!inDegree[nd]) q.push(nd);
-	            }
+	        for(auto &nd : adj[node]){\
+                inDegree[nd]--;
+                if(!inDegree[nd]) q.push(nd);
+	            
 	        }
 	    }
 	    return topo;
