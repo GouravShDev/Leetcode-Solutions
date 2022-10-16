@@ -5,8 +5,8 @@ public:
         if(d == 1){
             return *max_element(diff.begin() + index, diff.end());
         }
-        curMx = max(curMx, diff[index]);
         if(dp[index][d][curMx] != -1 )return dp[index][d][curMx];
+        curMx = max(curMx, diff[index]);
         int ans = 0;
         // not pick
         ans = solve(diff, index+1, d, curMx,dp);
