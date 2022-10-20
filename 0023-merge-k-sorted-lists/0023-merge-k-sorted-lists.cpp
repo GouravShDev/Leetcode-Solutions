@@ -38,22 +38,20 @@ public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.size()==0) return NULL;
         int k = 0;
-        vector<ListNode*> lts= lists;
-        while(lts.size() != 1){
-            int n = lts.size()-1;
-            vector<ListNode*> ls;
+        int length = lists.size();
+        while(length != 1 ){
+            
             k = 0;
-            while(k <(lts.size()+1)/2){
+            while(k < length / 2){
                 // cout<<k<<endl;
-                auto s = (k == lts.size()/2 )? NULL: lts[n-k];
-                ls.push_back(mergeTwoLL(lts[k], s));
+                lists[k] = mergeTwoLL(lists[k], lists[length - k - 1]);
                 k++;
             }
             // cout<<ls.size()<<endl;
-            lts = ls;
+            length = (length + 1)/ 2;
         }
         // cout<<"adf";
         // return NULL;
-        return lts.back();
+        return lists.front();
     }
 };
