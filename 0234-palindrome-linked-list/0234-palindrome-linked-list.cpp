@@ -41,8 +41,8 @@ public:
             head = head->next;
             reverseHead=  reverseHead->next;
         }
-        // ListNode* rvvHead = reverseLL(rvHead);
-        // middlePrev ->next = rvvHead;
+        ListNode* rvvHead = reverseLL(rvHead);
+        if(middlePrev) middlePrev ->next = rvvHead;
         // while(orgHead){
         //     cout<<orgHead->val<<" ";
         //     orgHead=orgHead->next;
