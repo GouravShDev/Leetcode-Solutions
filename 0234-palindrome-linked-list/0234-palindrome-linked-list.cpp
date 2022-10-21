@@ -10,25 +10,37 @@
  */
 class Solution {
 public:
-    ListNode* getMiddle(ListNode* node){
-        if(!node) return NULL;
+    pair<ListNode*, ListNode*> getMiddleAndPrev(ListNode* node){
+        if(!node) return {NULL, NULL};
         ListNode* slow = node;
         ListNode* fast = node;
+        ListNode* prev= NULL;
         while(fast && fast->next){
+            prev = slow;
             slow = slow->next;
             fast= fast->next->next;
         }
-        return slow;
+        return {prev, slow};
     }
-    bool solve(ListNode* head, ListNode* &node){
-        if(!head)return true;
-        bool ans = solve(head->next, node);
-        if(head->val  != node->val) return false;
-        node = node->next;
-        return ans;
+    ListNode* reverseLL(ListNode* head){
+        if(!head || !head->next) return head;
+        ListNode* newHead = reverseLL(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return newHead;
     }
     bool isPalindrome(ListNode* head) {
-        ListNode* middle = getMiddle(head);
-        return solve(middle, head);
+        auto [middlePrev , middle] = getMiddleAndPrev(head);
+        ListNode* reverseHead = reverseLL(middle);
+        while(head && reverseHead){
+            cout<<head->val;
+            if(head->val != reverseHead->val){
+                return false;
+            }
+            head = head->next;
+            reverseHead=  reverseHead->next;
+        }
+        return true;
+        
     }
 };
