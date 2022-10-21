@@ -10,14 +10,25 @@
  */
 class Solution {
 public:
-    bool solve(ListNode* node, ListNode* &head){
-        if(!node) return true;
-        bool ans = solve(node->next, head);
-        if(node->val != head->val) return false;
-        head= head->next;
+    ListNode* getMiddle(ListNode* node){
+        if(!node) return NULL;
+        ListNode* slow = node;
+        ListNode* fast = node;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast= fast->next->next;
+        }
+        return slow;
+    }
+    bool solve(ListNode* head, ListNode* &node){
+        if(!head)return true;
+        bool ans = solve(head->next, node);
+        if(head->val  != node->val) return false;
+        node = node->next;
         return ans;
     }
     bool isPalindrome(ListNode* head) {
-        return solve(head, head);
+        ListNode* middle = getMiddle(head);
+        return solve(middle, head);
     }
 };
