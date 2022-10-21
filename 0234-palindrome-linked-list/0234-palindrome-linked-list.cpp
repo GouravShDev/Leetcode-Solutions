@@ -21,12 +21,21 @@ public:
             prev= slow;
             slow = temp;    
         }
+        auto rvHead = prev;
+        prev = slow;
         if(fast) slow= slow->next;
-        while(prev && slow){
-            if(prev->val != slow->val)return false;
-            prev = prev->next;
-            slow = slow->next;
+        auto midHead = slow;
+        bool isPalindrome=true;
+        while(rvHead && midHead){
+            if(rvHead->val != midHead->val) isPalindrome =  false;
+            // restoring original list
+            ListNode* temp = rvHead->next;
+            rvHead->next = prev;
+            prev = rvHead;
+            rvHead = temp;
+            midHead = midHead->next;
         }
-        return true;
+        
+        return isPalindrome;
     }
 };
