@@ -31,15 +31,22 @@ public:
     }
     bool isPalindrome(ListNode* head) {
         auto [middlePrev , middle] = getMiddleAndPrev(head);
-        ListNode* reverseHead = reverseLL(middle);
+        ListNode* rvHead = reverseLL(middle);
+        auto reverseHead = rvHead;
+        ListNode* orgHead = head;
         while(head && reverseHead){
-            cout<<head->val;
             if(head->val != reverseHead->val){
                 return false;
             }
             head = head->next;
             reverseHead=  reverseHead->next;
         }
+        // ListNode* rvvHead = reverseLL(rvHead);
+        // middlePrev ->next = rvvHead;
+        // while(orgHead){
+        //     cout<<orgHead->val<<" ";
+        //     orgHead=orgHead->next;
+        // }
         return true;
         
     }
