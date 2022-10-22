@@ -1,34 +1,31 @@
 class Solution {
 public:
-    bool isVecEq(vector<int> &a, vector<int> &b){
-        for(int i =0 ; i < a.size(); i++){
-            if(a[i] > b[i]) return false;
-        }
-        return true;
-    }
     string minWindow(string s, string t) {
-        vector<int> tarFreq(256);
-        vector<int> curFreq(256);
-        for(auto &ch : t){
-            tarFreq[ch]++;
-        }
+        int counter = t.size();
+        vector<int> curMp(256);
         int i =0;
-        int ansStart = 0;
-        int ansEnd = s.size()-1;
-        int flag = 0;
-        for(int j = 0 ; j < s.size() ; j++){
-            if(tarFreq[s[j]]) curFreq[s[j]]++;
-            while(isVecEq(tarFreq, curFreq) && i < s.size()){
-                flag = 1;
-                if(ansEnd - ansStart > j - i){
-                    ansStart = i;
-                    ansEnd = j;
+        for(auto &ch : t){
+            curMp[ch]++;
+        }
+        int start = 0;
+        int end = INT_MAX;
+        
+        // A = 1 , B = 1 , C= 1
+        // a , freq = 0;
+        for(int j =0 ; j < s.size(); j++){
+            if(curMp[s[j]]-- > 0) counter--;
+            while(counter == 0){
+                if(end - start > j - i){
+                    start = i;
+                    end = j;
                 }
-                if(tarFreq[s[i]])curFreq[s[i]]--;
+                if(curMp[s[i]]++ == 0 )counter++;
                 i++;
             }
+            
         }
-        if(!flag) return "";
-        return s.substr(ansStart, ansEnd-ansStart+1);
+        
+        
+        return end != INT_MAX ? s.substr(start , end - start  +1) : "";
     }
 };
