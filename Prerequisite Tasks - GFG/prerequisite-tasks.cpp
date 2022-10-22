@@ -24,7 +24,7 @@ public:
 	    for(int i=0 ;i < pre.size() ;i++){
 	        int u = pre[i].second;
 	        int v = pre[i].first;
-	        adj[u].push_back(v);
+	        adj[v].push_back(u);
 	    }
 	    vector<int> visited(N);
 	    vector<int> dfsVisited(N);
