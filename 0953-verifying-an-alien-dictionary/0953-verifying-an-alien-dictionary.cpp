@@ -1,25 +1,15 @@
 class Solution {
 public:
     bool isAlienSorted(vector<string>& words, string order) {
-        vector<int> mp(256);
-        for(int i =0 ; i < order.size(); i++){
-            mp[order[i]] = i;
+        vector<int> mp(26);
+        for(int i =0 ; i < 26; i++){
+            mp[order[i]-'a'] = i;
         }
-        for(int i =0 ; i< words.size()-1; i++){
-            string s1 = words[i];
-            string s2 = words[i+1];
-            int size = min(s1.size() , s2.size());
-            int flag = 1;
-            for(int j =0 ;j < size; j++){
-                if(s1[j] == s2[j]) continue;
-                flag = 0;
-                if(mp[s1[j]] > mp[s2[j]]) return false;
-                break;
-            }
-            if(flag && s1.size() > s2.size()){
-                return false;
+        for(auto &word : words){
+            for(auto &ch : word){
+                ch = mp[ch-'a'];
             }
         }
-        return true;
+        return is_sorted(words.begin(), words.end());
     }
 };
