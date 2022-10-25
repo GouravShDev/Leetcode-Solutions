@@ -18,16 +18,15 @@ class Solution {
         }
         vector<int> dis(N, 1e8);
         dis[src] = 0;
-        queue<pair<int,int>> q;
-        q.push({src, 0});
+        queue<int> q;
+        q.push(src);
         while(!q.empty()){
-            int node = q.front().first;
-            int weight = q.front().second + 1;
+            int node = q.front();
             q.pop();
             for(auto nd : graph[node]){
-                if( weight < dis[nd]){
-                    dis[nd]=weight;
-                    q.push({nd, weight});
+                if( dis[node]+1 < dis[nd]){
+                    dis[nd]=dis[node] + 1;
+                    q.push(nd);
                 }
             }
         }
