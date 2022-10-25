@@ -11,15 +11,16 @@ public:
             int seq= q.front().second;
             q.pop();
             for(int i =0 ; i< cur.size() ; i++){
-                string temp = cur;
+                char org = cur[i];
                 for(int j =0; j < 26; j++){
-                    temp[i] = 'a' + j;
-                    if(st.find(temp) != st.end()){
-                        st.erase(temp);
-                        if(temp == endWord) return seq + 1;
-                        q.push({ temp ,seq+1});
+                    cur[i] = 'a' + j;
+                    if(st.find(cur) != st.end()){
+                        st.erase(cur);
+                        if(cur == endWord) return seq + 1;
+                        q.push({ cur ,seq+1});
                     }
                 }
+                cur[i] = org;
             }
         }
         return 0;
