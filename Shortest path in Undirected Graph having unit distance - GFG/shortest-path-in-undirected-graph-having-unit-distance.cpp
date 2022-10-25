@@ -22,11 +22,11 @@ class Solution {
         q.push({src, 0});
         while(!q.empty()){
             int node = q.front().first;
-            int weight = q.front().second;
+            int weight = q.front().second + 1;
             q.pop();
             for(auto nd : graph[node]){
-                if(dis[node] + weight  + 1< dis[nd]){
-                    dis[nd]= dis[node] + weight + 1;
+                if( weight < dis[nd]){
+                    dis[nd]=weight;
                     q.push({nd, weight});
                 }
             }
