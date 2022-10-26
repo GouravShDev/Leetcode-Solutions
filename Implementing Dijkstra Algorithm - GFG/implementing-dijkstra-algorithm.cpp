@@ -10,13 +10,13 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-        priority_queue<pair<int,int>, vector<pair<int,int>> , greater<pair<int,int>> > pq;
+        queue<pair<int,int>> pq;
         vector<int> distance(V,1e8);
         distance[S] = 0;
         pq.push({0, S});
         while(!pq.empty()){
-            auto weight = pq.top().first;
-            auto node= pq.top().second;
+            auto weight = pq.front().first;
+            auto node= pq.front().second;
             pq.pop();
             for(auto &it : adj[node]){
                 int edgeWeight = it[1];
