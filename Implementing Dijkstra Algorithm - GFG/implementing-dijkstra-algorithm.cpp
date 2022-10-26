@@ -18,12 +18,12 @@ class Solution
             auto weight = pq.top().first;
             auto node= pq.top().second;
             pq.pop();
-            for(auto &adjNode : adj[node]){
-                // cout<<adjNode[1]<<" "<<adjNode[0]<<endl;
-                if(weight + adjNode[1] < distance[adjNode[0]]){
-                    distance[adjNode[0]] = weight + adjNode[1];
-                    //cout<<distance[adjNode[0]];
-                    pq.push({distance[adjNode[0]], adjNode[0]});
+            for(auto &it : adj[node]){
+                int edgeWeight = it[1];
+                int adjNode = it[0];
+                if(weight + edgeWeight < distance[adjNode]){
+                    distance[adjNode] = weight + edgeWeight;
+                    pq.push({distance[adjNode], adjNode});
                 }
             }
         }
