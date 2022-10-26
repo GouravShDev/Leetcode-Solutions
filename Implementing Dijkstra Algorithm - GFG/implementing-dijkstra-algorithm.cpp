@@ -10,20 +10,23 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-        queue<pair<int,int>> pq;
+        set<pair<int,int>> st;
         vector<int> distance(V,1e8);
         distance[S] = 0;
-        pq.push({0, S});
-        while(!pq.empty()){
-            auto weight = pq.front().first;
-            auto node= pq.front().second;
-            pq.pop();
+        st.insert({0, S});
+        while(!st.empty()){
+            auto weight = st.begin()->first;
+            auto node= st.begin()->second;
+            st.erase(st.begin());
             for(auto &it : adj[node]){
                 int edgeWeight = it[1];
                 int adjNode = it[0];
                 if(weight + edgeWeight < distance[adjNode]){
                     distance[adjNode] = weight + edgeWeight;
-                    pq.push({distance[adjNode], adjNode});
+                    if(distance[adjNode] != 1e8){
+                        st.erase({distance[adjNode], adjNode});
+                    }
+                    st.insert({distance[adjNode], adjNode});
                 }
             }
         }
