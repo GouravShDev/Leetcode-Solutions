@@ -15,27 +15,36 @@ class Solution {
             graph[u].push_back({v, weight});
             graph[v].push_back({u, weight});
         }
-        priority_queue<pair<int, vector<int>>, vector<pair<int,vector<int>>> , greater<pair<int,vector<int>>>> pq;
-        pq.push({0 , {1}});
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int,int>>> pq;
+        pq.push({0 , 1});
         vector<int> distance(n+1, 1e8);
         distance[1] = 0;
+        vector<int> parent(n+1, -1);
         while(!pq.empty()){
-            int weight = pq.top().first;
-            auto path = pq.top().second;
-            int lastNode = path.back();
-            if(lastNode == n) return path;
+            auto weight = pq.top().first;
+            auto node = pq.top().second;
             pq.pop();
-            for(auto &it : graph[lastNode]){
-                auto adjNode = it.first;
-                auto adjWeight= it.second;
-                if(weight + adjWeight < distance[adjNode]){
-                    distance[adjNode] = weight + adjWeight;
-                    path.push_back(adjNode);
-                    pq.push({distance[adjNode], path});
-                    path.pop_back();
+            if(node == n){
+                vector<int> ans;
+                while(node != -1){
+                    ans.push_back(node);
+                    node = parent[node];
+                }
+                // for(int i = 0 ;i  < parent.size(); i++){
+                //     cout<<parent[i] << " ";
+                // }
+                reverse(ans.begin(), ans.end());
+                return ans;
+            }
+            for(auto &it : graph[node]){
+                int nodeWeight= it.second;
+                int curNode = it.first;
+                if(weight + nodeWeight < distance[curNode]){
+                    distance[curNode] = weight + nodeWeight;
+                    parent[curNode] = node;
+                    pq.push({distance[curNode] , curNode });
                 }
             }
-            
         }
         return {-1};
     }
