@@ -13,11 +13,13 @@ public:
             auto curEffort = pq.top().first;
             auto row = pq.top().second.first;
             auto col = pq.top().second.second;
+            if(row == n-1 && col == m-1) return curEffort;
             pq.pop();
             for(int i =0 ;i < 4; i++){
                 int newRow= row+ dx[i];
                 int newCol = col + dy[i];
                 if(newRow < 0 || newRow >= n || newCol < 0 || newCol >= m) continue;
+                
                 int effort = max(abs(heights[newRow][newCol]- heights[row][col]), curEffort);
                 if( effort  < efforts[newRow][newCol]){
                     efforts[newRow][newCol] = effort;
@@ -25,6 +27,6 @@ public:
                 }
             }
         }
-        return efforts[n-1][m-1];
+        return 0;
     }
 };
