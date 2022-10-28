@@ -25,7 +25,7 @@ public:
             if(node== n-1){
                 return ways[node];
             }
-            if(weight > times[n-1]) break;
+            //if(weight > times[n-1]) break;
             for(auto &it : graph[node]){
                 long long adjNode = it.first;
                 long long adjWeight = it.second;
