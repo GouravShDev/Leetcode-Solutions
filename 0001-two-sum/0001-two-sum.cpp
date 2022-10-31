@@ -1,16 +1,26 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> m;
-        vector<int> answer;
-        for(int i = 0; i < nums.size() ; i ++){
-            if(m.find(target- nums[i]) != m.end()){
-                answer.push_back(m[target- nums[i]]);
-                answer.push_back(i);
-                    break;
+        // we take map < nums[i] , i >
+        map<int,int> mp;
+        
+        // we iterate over nums [i]
+        for(int i= 0; i < nums.size(); i++){
+            
+            // cur nums[i]
+            // requried nums = target - cur
+
+            // required Num = 9 - 2 = 7
+            int requiredNums = target - nums[i];
+            // { 2 : 0 , }
+            if(mp.find(requiredNums) != mp.end()){
+                // if requiredNums present in map
+                vector<int> ans({ mp[requiredNums], i });
+                return ans;
             }
-            m.insert({ nums[i], i});
-        }
-        return answer;
+            mp[nums[i]] = i;
+            
+        } 
+        return {};
     }
 };
