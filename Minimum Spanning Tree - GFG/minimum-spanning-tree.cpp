@@ -10,17 +10,8 @@ class Solution
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         int ans = 0;
-        vector<pair<int,int>> graph[V];
-        for(int i = 0;i  < V ; i++){
-            for(auto &it : adj[i]){
-                
-            graph[i].push_back({it[0], it[1]});
-            graph[it[0]].push_back({i,it[1]});
-            }
-            
-        }
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
-        pq.push({0,0});
+        pq.push({0,1});
         vector<int> visited(V);
         while(!pq.empty()){
             auto it = pq.top();
@@ -30,9 +21,9 @@ class Solution
             if(visited[node]) continue;
             visited[node] =1;
             ans += weight;
-            for(auto &it : graph[node]){
-                int adjNode= it.first;
-                int adjWeigth = it.second;
+            for(auto &it : adj[node]){
+                int adjNode= it[0];
+                int adjWeigth = it[1];
                 if(!visited[adjNode]){
                     pq.push({adjWeigth , adjNode});
                 }
