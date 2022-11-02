@@ -23,8 +23,11 @@ public:
             for(int j = 1 ; j < accounts[i].size() ; j++){
                 if(parentMp.find(accounts[i][j]) != parentMp.end()){
                     merge(i , parentMp[accounts[i][j]]);
-                }
+                }else{
+                    
+                
                 parentMp[accounts[i][j]] = i;
+                }
             }
         }
         vector<vector<string>> ans;
