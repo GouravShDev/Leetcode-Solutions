@@ -24,22 +24,19 @@ public:
                 if(parentMp.find(accounts[i][j]) != parentMp.end()){
                     merge(i , parentMp[accounts[i][j]]);
                 }else{
-                    
-                
-                parentMp[accounts[i][j]] = i;
+                    parentMp[accounts[i][j]] = i;
                 }
             }
         }
         vector<vector<string>> ans;
-        map<int, set<string>> mp;
-        for(auto &acc : accounts){
-            for(int i =1 ; i < acc.size(); i++){
-                mp[findParent(parentMp[acc[i]])].insert(acc[i]);
-            }
+        map<int, vector<string>> mp;
+        for(auto &acc : parentMp){
+            mp[findParent(acc.second)].push_back(acc.first);
         }
         for(auto &it: mp){
             vector<string> temp;
             temp.push_back(accounts[it.first][0]);
+            sort(it.second.begin() ,it.second.end());
             temp.insert(temp.end() , it.second.begin(), it.second.end());
             ans.push_back(temp);
         }
