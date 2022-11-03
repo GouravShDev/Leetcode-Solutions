@@ -1,46 +1,20 @@
 class Solution
 {
     public:
-        int longestPalindrome(vector<string> &words)
-        {
-            unordered_map<string, int> mp;
-            for (auto &word: words)
-            {
-                mp[word]++;
-            }
+        int longestPalindrome(vector<string>& words) {
+            vector<vector<int>> counter(26, vector<int>(26, 0));
             int ans = 0;
-            for (auto &word: words)
-            {
-                string revW = word;
-                reverse(revW.begin(), revW.end());
-                if (mp.find(revW) != mp.end() && mp[revW] > 0 && mp[word] > 0 && revW != word)
-                {
-                    int mn = min(mp[word], mp[revW]);
-                    mp[word] -= mn;
-                    mp[revW] -= mn;
-                    ans += 4 * mn;
-                }
-                if (revW == word && mp[word] > 1)
-                {
-                    int m = mp[word];
-                    if(m & 1) m--;
-                    mp[word] -= m;
-                    ans += 2 * m;
-                }
-                
+            for (string w: words) {
+                int a = w[0] - 'a', b = w[1] - 'a';
+                if (counter[b][a]) ans += 4, counter[b][a]--;
+                else counter[a][b]++;
             }
-            for (auto &it: mp)
-                {
-                //if(it.second ==0)continue;
-                
-                    string revW = it.first;
-                    reverse(revW.begin(), revW.end());
-                    if (it.first == revW&& it.second == 1)
-                    {
-                        ans += 2;
-                        break;
-                    }
+            for (int i = 0; i < 26; i++) {
+                if (counter[i][i]) {
+                    ans += 2;
+                    break;
                 }
+            }
             return ans;
-        }
+}
 };
