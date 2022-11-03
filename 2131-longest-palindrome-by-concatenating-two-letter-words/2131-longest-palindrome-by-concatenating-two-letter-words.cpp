@@ -3,7 +3,7 @@ class Solution
     public:
         int longestPalindrome(vector<string> &words)
         {
-            map<string, int> mp;
+            unordered_map<string, int> mp;
             for (auto &word: words)
             {
                 mp[word]++;
