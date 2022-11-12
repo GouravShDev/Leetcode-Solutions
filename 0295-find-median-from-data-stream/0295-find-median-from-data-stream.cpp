@@ -1,31 +1,40 @@
 class MedianFinder {
 public:
-    priority_queue<int> mxHeapLeft;
-    priority_queue<int, vector<int>, greater<int>> mnHeapRight;
+    // Mx Heap
+    priority_queue<double> leftMx;
+    
+    // min Heap
+    priority_queue<double, vector<double> , greater<double> > rightMn;
+    
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-        mxHeapLeft.push(num);
-        if(mxHeapLeft.size() - mnHeapRight.size() > 1){
-            mnHeapRight.push(mxHeapLeft.top());
-            mxHeapLeft.pop();
-        }else if(!mnHeapRight.empty() && mxHeapLeft.top() > mnHeapRight.top()){
-            int leftMx = mxHeapLeft.top();
-            int rightMn = mnHeapRight.top();
-            mxHeapLeft.pop();
-            mnHeapRight.pop();
-            mnHeapRight.push(leftMx);
-            mxHeapLeft.push(rightMn);
+        leftMx.push(num);
+        
+        // size diff <= 1
+        if(leftMx.size() - rightMn.size() > 1){
+            int x = leftMx.top();
+            leftMx.pop();
+            rightMn.push(x);
+        }else if(!rightMn.empty() && leftMx.top() > rightMn.top() ){
+            int lt = leftMx.top();
+            leftMx.pop();
+            int rt = rightMn.top();
+            rightMn.pop();
+            
+            leftMx.push(rt);
+            rightMn.push(lt);
         }
+        
     }
     
     double findMedian() {
-        if(mxHeapLeft.size() != mnHeapRight.size()){
-            return mxHeapLeft.top();
+        if((leftMx.size() + rightMn.size()) % 2 == 0){
+            return (leftMx.top() + rightMn.top()) / 2;
         }
-        return (double)(mnHeapRight.top() + mxHeapLeft.top())/2;
+        return leftMx.top();
     }
 };
 
