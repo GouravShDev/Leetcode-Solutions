@@ -2,18 +2,29 @@ class Solution {
 public:
     string reverseWords(string s) {
         
-        string ans = "";
-            string cur = "";
-        for(int i =0 ; i <= s.size() ;i++){
-            if(i == s.size() || s[i] == ' '){
-                if(cur.empty()) continue;
-                ans.insert(0, cur + " ");
-                cur = "";
+        reverse(s.begin() , s.end());
+        int lastStartIndex = -1;
+        for(int i =0 ; i <= s.size(); i++){
+            if((i == s.size() || s[i] == ' ') && lastStartIndex != -1){
+                reverse(s.begin() + lastStartIndex, s.begin() + i);
+                lastStartIndex = -1;
             }else{
-                cur+= s[i];
+                if(lastStartIndex == -1) lastStartIndex = i;  
             }
         }
-        ans.pop_back();
-        return ans;
+        int j = 0;
+        int index = -1;
+        while(j < s.size() && s[j] == ' '){
+            j++;
+        }
+        while(j < s.size()){
+            if(index != -1 && s[index] == ' ' && s[j] == ' '){
+                j++;
+                continue;
+            }
+            s[++index] = s[j++];
+        }
+        if(s[index] == ' ') index--;
+        return s.substr(0, index+1);
     }
 };
