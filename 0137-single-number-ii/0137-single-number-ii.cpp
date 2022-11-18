@@ -1,16 +1,19 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-        int i = 0;
-        while(i < nums.size()-1){
-            if(nums[i] == nums[i+1] && nums[i+1] == nums[i+2]){
-                i+= 3;
-            }else{
-                return nums[i];
+        unsigned int ans = 0;
+        for(int i = 0; i < 32; i++){
+            int count = 0;
+            for(unsigned int num  : nums){
+                if((num & (1 << i)) > 0){
+                    count++;
+                }
             }
-            
+            count %= 3;
+            if(count > 0){
+                ans |= 1 << i;
+            }
         }
-        return nums[nums.size()-1];
+        return ans;
     }
 };
