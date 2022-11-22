@@ -1,18 +1,18 @@
 class Solution {
 public:
-    int solve(vector<vector<int>> &dp , int start ,int end, vector<vector<int>>  &dp2){
+    int solve(vector<vector<int>> &dp , int start ,int end, vector<int> &dp2){
         if(start == dp.size()){
             return 0;
         }
         if(end == dp.size())return 1e7;
-        if(dp2[start][end] != -1) return dp2[start][end];
+        if(dp2[start] != -1) return dp2[end];
         int ans = INT_MAX;
         // cut
         if(dp[start][end])
             ans = min(ans, 1 + solve(dp , end+1, end+1,dp2));
         // not cut
         ans = min(ans, solve(dp, start, end+1,dp2));
-        return dp2[start][end] = ans;
+        return dp2[start] = ans;
         
     }
     int minCut(string s) {
@@ -40,7 +40,7 @@ public:
         //     }
         //     cout<<endl;
         // }
-        vector<vector<int>> dp2(s.size(), vector<int> (s.size(), -1));
+        vector<int> dp2(s.size(), -1);
         return solve(dp, 0 , 0,dp2)-1;
         // return 0;
         
