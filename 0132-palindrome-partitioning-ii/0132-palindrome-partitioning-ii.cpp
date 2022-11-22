@@ -40,8 +40,21 @@ public:
         //     }
         //     cout<<endl;
         // }
-        vector<int> dp2(s.size(), -1);
-        return solve(dp, 0 , 0,dp2)-1;
+        vector<int> dp2(s.size()+1, 1e8);
+        dp2[s.size()] = 0;
+        for(int i = s.size()-1; i >= 0 ; i--){
+            for(int j = s.size()-1; j >= 0 ; j--){
+                int ans = INT_MAX;
+                // cut
+                if(dp[i][j])
+                    ans = min(ans, 1 + dp2[j+1]);
+                // not cut
+                ans = min(ans, dp2[i]);
+                dp2[i] = ans;
+                // cout<<ans;
+            }
+        }
+        return dp2[0]-1;
         // return 0;
         
     }
