@@ -1,19 +1,20 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        vector<unordered_set<int>> rowSet(board.size());
-        vector<unordered_set<int>> colSet(board.size());
-        vector<vector<unordered_set<int>>> matSet(board.size() , vector<unordered_set<int>>(board.size()));
+        unordered_set<string> st;
         for(int i =0 ;i  < board.size() ; i++){
             for(int j = 0 ;j < board[0].size(); j++){
                 if(board[i][j] == '.')continue;
-                if(rowSet[i].count(board[i][j]) || colSet[j].count(board[i][j]) || matSet[i/3][j/3].count(board[i][j])){
+                string r = to_string(board[i][j]) + " row " + to_string(i);
+                string c = to_string(board[i][j]) + " col " + to_string(j);
+                string rc = to_string(board[i][j]) + " block " + to_string(i/3)  + to_string(j / 3);
+                if(st.count(r) || st.count(c) || st.count(rc)){
                     // cout<<board[i][j]<<endl;
                     return false;
                 }
-                rowSet[i].insert(board[i][j]);
-                colSet[j].insert(board[i][j]);
-                matSet[i/3][j/3].insert(board[i][j]);
+                st.insert(r);
+                st.insert(c);
+                st.insert(rc);
             }
         }
         return true;
