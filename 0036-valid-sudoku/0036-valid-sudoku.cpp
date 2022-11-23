@@ -1,9 +1,9 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        vector<set<int>> rowSet(board.size());
-        vector<set<int>> colSet(board.size());
-        vector<vector<set<int>>> matSet(board.size() , vector<set<int>>(board.size()));
+        vector<unordered_set<int>> rowSet(board.size());
+        vector<unordered_set<int>> colSet(board.size());
+        vector<vector<unordered_set<int>>> matSet(board.size() , vector<unordered_set<int>>(board.size()));
         for(int i =0 ;i  < board.size() ; i++){
             for(int j = 0 ;j < board[0].size(); j++){
                 if(board[i][j] == '.')continue;
