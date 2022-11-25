@@ -26,7 +26,7 @@ public:
 
     int ans = 0, mod = 1e9 +7;
     for(int i = 0; i < A.size(); i++){
-      ans = (ans + 1ll * A[i]*left[i]*right[i])%mod;
+      ans = (ans + 1LL * A[i]*left[i]*right[i])%mod;
     }
     return ans;
   }
