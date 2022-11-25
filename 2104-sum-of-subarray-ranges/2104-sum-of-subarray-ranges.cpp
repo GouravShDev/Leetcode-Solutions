@@ -21,24 +21,24 @@ public:
             }
             stk.push(i);
         }
-        
+        stk = stack<int>();
         vector<int> prev2(n,-1);
         vector<int> next2(n,n);
-        stack<int> stk2;
+        //stack<int> stk;
         
         for(int i =0 ;i < n; i++){
-            while(!stk2.empty() && arr[stk2.top()] <= arr[i]){
-                next2[stk2.top()] = i;
-                stk2.pop();
+            while(!stk.empty() && arr[stk.top()] <= arr[i]){
+                next2[stk.top()] = i;
+                stk.pop();
             }
-            stk2.push(i);
+            stk.push(i);
         }
         for(int i =n-1;i >= 0; i--){
-            while(!stk2.empty() && arr[stk2.top()] < arr[i]){
-                prev2[stk2.top()] = i;
-                stk2.pop();
+            while(!stk.empty() && arr[stk.top()] < arr[i]){
+                prev2[stk.top()] = i;
+                stk.pop();
             }
-            stk2.push(i);
+            stk.push(i);
         }
         
         long long ans = 0;
