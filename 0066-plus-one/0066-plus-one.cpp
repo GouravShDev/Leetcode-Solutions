@@ -1,22 +1,16 @@
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        int carry = 1;
-        int i = digits.size()-1;
-        vector<int> ans;
-        while(i >= 0){
-            // cout<<digits[i] <<" ";
-            if(digits[i] == 9 && carry){
-                ans.push_back(0);
-                carry = 1;
+        for(int i = digits.size() -1; i >= 0 ; i--){
+            if(digits[i] == 9){
+                digits[i] = 0;
             }else{
-                ans.push_back(digits[i]+carry);
-                carry = 0;
+                digits[i]++;
+                return digits;
             }
-            i--;
         }
-        if(carry) ans.push_back(1);
-        reverse(ans.begin(), ans.end());
-        return ans;
+        digits[0] = 1;
+        digits.push_back(0);
+        return digits;
     }
 };
