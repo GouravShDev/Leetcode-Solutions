@@ -22,10 +22,7 @@ public:
             if(mp2[c] > 0) mp4[mp2[c]]++;
         }
         
-        for(auto &it : mp3){
-            if(it.second != mp4[it.first])return false;
-        }
-        return true;
+        return mp3 == mp4;
         
         
     }
