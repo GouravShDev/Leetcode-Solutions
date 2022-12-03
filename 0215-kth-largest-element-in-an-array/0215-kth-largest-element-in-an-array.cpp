@@ -1,27 +1,25 @@
 class Solution {
 public:
-    int parition(vector<int> &nums, int start , int end){
-        if(start == end) return start;
-        int pivot = nums[start];
-        int p = start;
-        int i = start;
-        int j = end;
-        // [ P xx x x  xx xxxxx  ]
-        while(start < end){
-             //cout<< start <<" " << end<<endl;
-            while(start < j && nums[start] <= pivot){
-                start++;
+     int parition(vector<int> &nums, int i, int j){
+        int pivotIndex = i++;
+        int end = j;
+        while(i <= j){
+            while( i <= end && nums[i] < nums[pivotIndex]){
+                i++;
             }
-            while(i < end && nums[end] > pivot){
-                end--;
+            while( j >= pivotIndex && nums[j] > nums[pivotIndex]){
+                j--;
             }
-            if(start < end) swap(nums[start++], nums[end--]);
+           if(i <= j){
+                swap(nums[i++], nums[j--]);
+            }
         }
-        swap(nums[end] , nums[p]);
-        return end;
+        swap(nums[pivotIndex] , nums[j]);
+        return j;
     }
     int quickSelect(vector<int> &nums, int start ,int end, int k){
         if(start == end ) return nums[start];
+
         int pivotIndex = parition(nums, start, end);
         //cout<<pivotIndex;
         if(pivotIndex == (nums.size() - k)) return nums[pivotIndex];
