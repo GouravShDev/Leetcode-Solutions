@@ -11,7 +11,15 @@ public:
         return dp[index][isAllowed] = ans;
     }
     int rob(vector<int>& nums) {
-        vector<vector<int>> dp(nums.size() , vector<int>(2, -1));
-        return solve(nums, 0, true, dp);
+        int n = nums.size();
+        vector<vector<int>> dp(nums.size()+1 , vector<int>(2));
+        for(int i  = n-1; i >= 0; i--){
+            int ans =INT_MIN;
+            ans = max(ans, dp[i+1][1]);
+            dp[i][0] = ans;
+            ans =max(ans , nums[i] + dp[i+1][0]);
+            dp[i][1] = ans;
+        }
+        return dp[0][1] ;
     }
 };
