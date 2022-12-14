@@ -12,14 +12,17 @@ public:
     }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> dp(nums.size()+1 , vector<int>(2));
+        int picked = 0;
+        int notPicked = 0;
         for(int i  = n-1; i >= 0; i--){
             int ans =INT_MIN;
-            ans = max(ans, dp[i+1][1]);
-            dp[i][0] = ans;
-            ans =max(ans , nums[i] + dp[i+1][0]);
-            dp[i][1] = ans;
+            // int lastPicked = picked;
+            int lastNotPicked = notPicked;
+            ans = max(ans, picked);
+            notPicked = ans;
+            ans =max(ans , nums[i] + lastNotPicked);
+            picked = ans;
         }
-        return dp[0][1] ;
+        return picked ;
     }
 };
