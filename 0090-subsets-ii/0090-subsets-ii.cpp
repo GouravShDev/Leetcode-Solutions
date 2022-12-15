@@ -2,7 +2,7 @@ class Solution {
 public:
     void solve(vector<int> &nums, int index , vector<int> &cur, vector<vector<int>> &ans){
         ans.push_back(cur);
-        if(cur.size() == nums.size())return;
+        if(index== nums.size())return;
         int lastPicked = -99999;
         for(int i = index; i < nums.size() ; i++){
             if(nums[i] != lastPicked){
