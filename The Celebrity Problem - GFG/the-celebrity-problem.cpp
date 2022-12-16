@@ -13,13 +13,13 @@ class Solution
     //Function to find if there is a celebrity in the party or not.
     int celebrity(vector<vector<int> >& M, int n) 
     {
-        stack<int> stk;
+        queue<int> stk;
         for(int i =0 ;i < n ;i++){
             stk.push(i);
         }
         while(stk.size() > 1){
-            int p1 = stk.top(); stk.pop();
-            int p2 = stk.top(); stk.pop();
+            int p1 = stk.front(); stk.pop();
+            int p2 = stk.front(); stk.pop();
             // cout<<p1<<" "<<p2<<endl;//
             // cout<<M[p1][p2]<<" "<<M[p2][p1]<<endl;
             if(!M[p1][p2] && !M[p2][p1]){
@@ -31,7 +31,7 @@ class Solution
             
         }
         if(stk.empty() )return -1;
-        int pCel = stk.top();
+        int pCel = stk.front();
         for(int i =0 ; i < n ; i++){
             if(i == pCel) continue;
             if(!M[i][pCel]) return -1;
