@@ -29,7 +29,7 @@ public:
                 for(int k = j+1; k < 64 ; k++){
                     cur |= (long(1) << k);
                     
-                    if(cur >= l && cur <= r && count(cur) == 3){
+                    if(cur >= l && cur <= r){
                         st.insert(cur);
                         // cout<<cur<<endl;
                         ans++;
