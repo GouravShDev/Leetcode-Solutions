@@ -7,6 +7,9 @@ public:
         links = new Node*[26]();
         isEnd = false;
     }
+    ~Node(){
+        delete[] links;
+    }
     bool getEnd(){
         return isEnd;
     }
@@ -26,7 +29,9 @@ public:
     Trie() {
         root = new Node();
     }
-    
+    ~Trie(){
+        delete root;
+    }
     void insert(string word) {
         Node* node = root;
         int n = word.size();
