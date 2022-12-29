@@ -38,19 +38,15 @@ public:
         int k = 0;
         while(!pq.empty() || i < n){ 
             
+            if(pq.empty()){
+                curTime = max(tsks[i].eqTime * 1ll, curTime);
+            }
             while(i < n && curTime >= tsks[i].eqTime){
                 pq.push(tsks[i++]);
             }
-            if(pq.empty()){
-                curTime = tsks[i].eqTime;
-                pq.push(tsks[i++]);
-                while(i < n && curTime >= tsks[i].eqTime){
-                    pq.push(tsks[i++]);
-                }
-            }
            
             ans[k++] = pq.top().id;
-            curTime += 1ll * pq.top().pTime;
+            curTime += pq.top().pTime;
             // cout<<curTime<<" ";
             pq.pop();
         }
