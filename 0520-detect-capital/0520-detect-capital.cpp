@@ -4,12 +4,22 @@ public:
         return c >= 'A' and c <= 'Z';
     }
     bool detectCapitalUse(string word) {
-        int count = 0;
-        for(auto &ch : word){
-            if(isCapital(ch)) count++;
+        bool firstWordCap = isCapital(word[0]);
+        int flag = 0;
+        for(int i =1  ; i < word.size(); i++){
+            bool curCap = isCapital(word[i]);
+            if(!firstWordCap && curCap){
+                return false;
+            }if(firstWordCap && curCap && flag == 0){
+                flag = 1;
+            }else if(firstWordCap && !curCap && flag == 0){
+                flag = -1;
+            }else if(flag == -1 && curCap){
+                return false;
+            }else if(flag == 1 && !curCap){
+                return false;
+            }
         }
-        if(count == word.size() || count == 0) return true;
-        if(count == 1 && isCapital(word[0])) return true;
-        return false;
+        return true;
     }
 };
