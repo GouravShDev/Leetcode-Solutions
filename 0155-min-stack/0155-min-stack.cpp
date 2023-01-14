@@ -1,34 +1,29 @@
-#define ll long long
 class MinStack {
 public:
-    stack<ll> stk;
-    ll minElement = INT_MAX;
+    stack<long long> stk;
+    long long curMin;
     MinStack() {
-        // unsigned int k = -1;
-        // cout<<k<<endl;
+        
     }
     
     void push(int v) {
-        ll val = v;
+        long long val=  v;
         if(stk.empty()){
             stk.push(val);
-            minElement = val;
-            return ;
-        }
-        if(val < minElement){
-            ll modVal = 2 * val - minElement;
-            minElement = val;
-            stk.push(modVal);
+            curMin = val;
         }else{
-            stk.push(val);
+            if(curMin < val){
+                stk.push(val);
+            }else{
+                stk.push((long long) 2 * val - curMin);
+                curMin = val;
+            }
         }
     }
     
     void pop() {
-        if(stk.empty())return;
-        if(stk.top() < minElement){
-            ll orgVal = 2 * minElement - stk.top();
-            minElement = orgVal;
+        if(stk.top() < curMin){
+            curMin = (long long) (2 * curMin - stk.top());
             stk.pop();
         }else{
             stk.pop();
@@ -36,13 +31,13 @@ public:
     }
     
     int top() {
-        if(stk.empty()) return -1;
-        if(stk.top() < minElement) return minElement;
-        return stk.top();
+        if(stk.top() < curMin){
+            return curMin;
+        }else return stk.top();
     }
     
     int getMin() {
-        return minElement;
+        return curMin;
     }
 };
 
