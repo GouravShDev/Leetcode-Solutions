@@ -1,26 +1,22 @@
 class Solution {
 public:
-    vector<int> findAnagrams(string s2, string s1) {
-       if(s1.size() > s2.size()) return {};
-        vector<int> targetMp(256);
-        vector<int> curMap(256);
-        for(int i =0 ; i < s1.size() ;i++){
-            targetMp[s1[i]]++;
-        }
-        int window = s1.size();
-        
-        for(int i = 0; i < window; i++){
-            curMap[s2[i]]++;
-        }
+    vector<int> findAnagrams(string s, string p) {
+        if(p.size() > s.size()) return {};
         vector<int> ans;
-        if(curMap == targetMp) ans.push_back(0);
-        for(int i = 0; i < s2.size()-window ; i++){
-            curMap[s2[i]]--;
-            curMap[s2[i+window]]++;
-            if(curMap == targetMp) {
-                ans.push_back(i+1);
-            };
+        vector<int> count(26);
+        vector<int> cur(26);
+        for(int i =0 ; i < p.size(); i++){
+            count[p[i]-'a']++;
+            cur[s[i]-'a']++;
         }
-        return ans; 
+        if(count == cur) ans.push_back(0);
+        // cur[s[0]-'a']--;
+        for(int i = 0;  i < s.size() - p.size(); i++){
+            cur[s[i]-'a']--;
+            cur[s[i+p.size()]-'a']++;
+            if(cur == count) ans.push_back(i+1);
+            
+        }
+        return ans;
     }
 };
