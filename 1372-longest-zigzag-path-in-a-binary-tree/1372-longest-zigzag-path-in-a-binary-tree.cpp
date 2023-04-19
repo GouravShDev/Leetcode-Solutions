@@ -12,17 +12,16 @@
 class Solution {
 public:
     int ans = 0;
-    void solve(TreeNode* node , bool lastRight, int len){
-        if(!node) return ;
-        ans = max(ans, len);
-        solve(node->left, !lastRight, lastRight ? len + 1: 0);
-        solve(node->right, !lastRight, lastRight ? 0 : len + 1);
-        
-        
+    int solve(TreeNode* node, bool isLastRight){
+        if(!node) return -1;
+        int left = 1 + solve(node->left, false);
+        int right = 1 + solve(node->right, true);
+        ans = max({ans, right, left});
+        return isLastRight? left : right;
     }
     int longestZigZag(TreeNode* root) {
-        solve(root, false, 0);
-        solve(root, true, 0);
+       
+        solve(root, true);
         return ans;
     }
 };
