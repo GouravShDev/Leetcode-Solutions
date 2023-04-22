@@ -6,9 +6,11 @@ public:
         if(dp[i][j] != -1) return dp[i][j];
         if(s1[i] == s2[j]){
             ans = max(ans, 1 + lcs(s1, s2, i+1, j+1,dp));
+        }else{
+           ans = max(ans, lcs(s1, s2, i+1, j,dp));
+        ans = max(ans, lcs(s1, s2, i, j+1,dp)); 
         }
-        ans = max(ans, lcs(s1, s2, i+1, j,dp));
-        ans = max(ans, lcs(s1, s2, i, j+1,dp));
+        
         return dp[i][j]= ans;
     }
     int minInsertions(string s) {
