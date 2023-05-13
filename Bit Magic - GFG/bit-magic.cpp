@@ -35,7 +35,7 @@ class Solution {
         for(int i = 0; i < n/2; i ++){
             if(arr[i] != arr[n-i-1]) count++;
         }
-        return ceil((double) count /2 );
+        return (count / 2) + ((count & 1) ? 1 : 0 );
     }
 };
 
