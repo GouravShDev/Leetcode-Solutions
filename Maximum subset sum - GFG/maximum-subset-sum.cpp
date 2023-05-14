@@ -67,7 +67,7 @@ class Solution {
             } 
         }
         // return solve(0 , A, true, dp);
-        return max(dp[0][1] ,dp[0][0]);
+        return dp[0][1];
     }
 };
 
