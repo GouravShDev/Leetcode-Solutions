@@ -48,8 +48,26 @@ class Solution {
         return dp[index][lastPicked] = ans;
     }
     long long findMaxSubsetSum(int N, vector<int> &A) {
-        vector<vector<int>> dp(N, vector<int>(2, -1));
-        return solve(0 , A, true, dp);
+        vector<vector<long long>> dp(N, vector<long long>(2, -1));
+        dp[N-1][0] = A[N-1];
+        dp[N-1][1] = A[N-1] >= 0 ? A[N-1] : 0;
+        for(int index = N-2 ; index >= 0; index--){
+            if(A[index] < 0){
+                long long ans  = INT_MIN;
+                
+                    ans = max(ans, dp[index+1][false]);
+                    
+                
+                    ans = max(ans, dp[index][false] = A[index] + dp[index+1][true]);
+                    dp[index][true] = ans;
+            
+            }else{
+                dp[index][1]= A[index] + dp[index+1][true];
+                dp[index][0] = dp[index][1];
+            } 
+        }
+        // return solve(0 , A, true, dp);
+        return max(dp[0][1] ,dp[0][0]);
     }
 };
 
