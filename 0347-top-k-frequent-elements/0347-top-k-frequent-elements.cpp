@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        map<int,int> freqMp;
+        vector<int> freqMp((1e4 * 2)+ 2);
         vector< vector<int>> valuesMp(1e4 * 2+ 2);
         for(auto &num : nums) freqMp[num + 1e4]++;
         for(int i =0 ;i < 1e4 * 2 + 2 ; i++){
