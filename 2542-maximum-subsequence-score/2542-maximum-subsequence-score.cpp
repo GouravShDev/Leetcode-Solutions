@@ -11,18 +11,16 @@ public:
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         for(int i = 0 ;i < nums2.size(); i++){
             if(pq.size() < k){
-                
-            sum += numWithIndex[i].first;
                 pq.push({nums2[numWithIndex[i].second],numWithIndex[i].second});
-            }
-            if(pq.size() == k){
-                
+            }else{
                 ans = max(ans, sum * pq.top().first);
                sum -= nums1[pq.top().second];
                 pq.pop();
+                pq.push({nums2[numWithIndex[i].second],numWithIndex[i].second});
             }
-         //   sum += numWithIndex[i].first;
+            sum += numWithIndex[i].first;
         }
+        if(pq.size() == k)    ans = max(ans, sum * pq.top().first);
         return ans;
     }
 };
