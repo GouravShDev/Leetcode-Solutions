@@ -14,7 +14,7 @@ class Solution
         int startCol = 0;
         int endRow = n-1;
         int endCol = m-1;
-        while(k){
+        while(startRow <= endRow && startCol <= endCol){
             for(int j = startCol ;j <= endCol ; j++){
                 k--;
                 if(k == 0) return a[startRow][j];
