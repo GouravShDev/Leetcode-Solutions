@@ -11,21 +11,20 @@ class Solution
 {
     public:
     //Function to delete middle element of a stack.
+    void solve(stack<int> &s, int remaining){
+        if(remaining == 0) {
+            return;
+            
+        }
+        int temp = s.top();
+        s.pop();
+        solve(s, remaining-1);
+        if(remaining != 1) s.push(temp);
+    }
     void deleteMid(stack<int>&s, int sizeOfStack)
     {
-        stack<int> stk;
-        int mid = ceil((double) (sizeOfStack + 1) / 2); 
-        while(mid){
-            stk.push(s.top());
-            s.pop();
-            mid--;
-        }
-        stk.pop();
-        while(!stk.empty()){
-            s.push(stk.top());
-            stk.pop();
-        }
-        
+        int middle = ceil((double) (sizeOfStack + 1) / 2);
+        solve(s, middle);
     }
 };
 
