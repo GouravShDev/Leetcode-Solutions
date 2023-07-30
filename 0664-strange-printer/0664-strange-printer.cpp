@@ -16,14 +16,14 @@ public:
         return dp[i][j][pickedIndex];
     }
     int strangePrinter(string s) {
-        string newStr = s;
-        // char lastCh = '#';
-        // for(auto &i : s){
-        //     if(i != lastCh){
-        //         newStr+= i;
-        //     }
-        //     lastCh = i;
-        // }
+        string newStr = "";
+        char lastCh = '#';
+        for(auto &i : s){
+            if(i != lastCh){
+                newStr+= i;
+            }
+            lastCh = i;
+        }
         vector<vector<vector<int>>> dp(newStr.size(), vector<vector<int>>(newStr.size(),vector<int>(newStr.size()+1, -1)));
         return solve(newStr, 0, newStr.size()-1, 0, dp)+1;
     }
