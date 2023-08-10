@@ -8,13 +8,11 @@ public:
             if(nums[mid] == target) return true;
             
             if(nums[start] == nums[mid]  && nums[mid] == nums[end]){
-                int prevValue = nums[mid];
-                while(start <= end && nums[start] == prevValue){
+                while(start <= end && nums[start] == nums[end]){
                     start++;
-                }
-                while(start <= end && nums[end] == prevValue){
                     end--;
                 }
+            
                  if(start > end) return false;
                 mid = start + (end - start)/2;
             if(nums[mid] == target) return true;
