@@ -10,7 +10,7 @@ class Solution
     {
         int firstOcc = lower_bound(arr, arr+n , x) - arr;
         int lastOcc = upper_bound(arr, arr + n , x) - arr - 1;
-        if(arr[firstOcc] != x || lastOcc == -1) return {-1, -1};
+        if(arr[firstOcc] != x ) return {-1, -1};
         
         return {firstOcc , lastOcc};
     }
