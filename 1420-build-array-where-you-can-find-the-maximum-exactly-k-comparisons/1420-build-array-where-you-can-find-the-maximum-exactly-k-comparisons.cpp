@@ -9,7 +9,7 @@ public:
         if(curMx != -1 && dp[n][k][curMx] != -1) return dp[n][k][curMx];
         int ans =0 ;
         for(int i = 1 ; i <= m ; i++){
-            ans = ((long long)ans  + solve(n-1, m, k - (curMx < i ? 1 : 0), max(curMx, i), dp)) % mod;
+            ans = (ans  + solve(n-1, m, k - (curMx < i ? 1 : 0), max(curMx, i), dp)) % mod;
         }
         return curMx != -1 ? dp[n][k][curMx]  =  ans : ans;
     }
