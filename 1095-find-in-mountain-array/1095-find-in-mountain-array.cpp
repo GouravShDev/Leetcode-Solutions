@@ -34,11 +34,10 @@ public:
         end = peak;
         while(start <=end){
             int mid = start + (end - start)/2;
-            int cur = mountainArr.get(mid);
-            if(cur == target){
+            if(mountainArr.get(mid) == target){
                 return mid;
             }
-            if(cur < target){
+            if(mountainArr.get(mid) < target){
                 start = mid + 1;
             }else{
                 end = mid-1;
@@ -48,11 +47,10 @@ public:
         end = n-1;
         while(start <=end){
             int mid = start + (end- start)/2;
-            int cur = mountainArr.get(mid);
-            if(cur == target){
+            if(mountainArr.get(mid) == target){
                 return mid;
             }
-            if(cur < target){
+            if(mountainArr.get(mid) < target){
                 end = mid-1;
             }else{
                 start = mid+1;
