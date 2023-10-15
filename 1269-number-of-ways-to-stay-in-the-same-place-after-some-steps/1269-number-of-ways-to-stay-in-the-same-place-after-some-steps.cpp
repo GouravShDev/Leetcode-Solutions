@@ -15,7 +15,7 @@ public:
         return dp[steps][index] = ans;
     }
     int numWays(int steps, int arrLen) {
-        vector<vector<int>> dp(steps+1 , vector<int>(1e5, -1));
+        vector<vector<int>> dp(steps+1 , vector<int>(1e4, -1));
         return solve(steps, arrLen, 0,dp);
     }
 };
