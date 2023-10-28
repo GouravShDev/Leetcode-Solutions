@@ -1,30 +1,25 @@
 class Solution {
-private: 
-    int mod = 1e9+7;
 public:
-    
-    int solve(int n , char lastCh, map<char, vector<char>> &mp,vector<vector<int>> &dp){
-        if(n == 0) return 1;
-        if(dp[n][lastCh-'a'] != -1) return dp[n][lastCh-'a'];
-        int ans = 0;
-        for(auto &c : mp[lastCh]){
-            ans = (ans + solve(n-1, c, mp,dp)) % mod;
-        }
-        return dp[n][lastCh-'a'] = ans;
-    }
     int countVowelPermutation(int n) {
-        map<char, vector<char>> mp = {
-            {'a', {'e'}},
-            {'e', {'a', 'i'}},
-            {'i', {'a', 'e','o','u'}},
-            {'o', {'i','u'}},
-            {'u', {'a'}}
+        vector<long long> dp(5, 1);
+        vector<long long> prev = dp;
+        int mod = 1e9+7;
+        map<char, int> mp = {
+            {'a', 0},
+            {'e', 1},
+            {'i', 2},
+            {'o', 3},
+            {'u', 4},
         };
-        int ans = 0;
-        vector<vector<int>> dp(n, vector<int>(26,-1));
-        for(auto &it: mp){
-           ans = (ans + solve(n-1, it.first, mp,dp)) % mod; 
+        for(int i = 1 ;i < n; i++){
+            dp[mp['a']] = (prev[mp['e']] + prev[mp['i']] + prev[mp['u']]) % mod;
+            dp[mp['e']] = (prev[mp['a']] + prev[mp['i']]) % mod;
+            dp[mp['i']] = (prev[mp['e']] + prev[mp['o']]) % mod;
+            dp[mp['o']] = prev[mp['i']];
+            dp[mp['u']] = (prev[mp['o']] + prev[mp['i']])% mod;
+            prev = dp;
         }
-        return ans;
+        return accumulate(prev.begin(), prev.end(), 0LL) % mod;
+        
     }
 };
