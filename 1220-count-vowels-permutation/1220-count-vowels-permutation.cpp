@@ -19,7 +19,11 @@ public:
             dp[mp['u']] = (prev[mp['o']] + prev[mp['i']])% mod;
             prev = dp;
         }
-        return accumulate(prev.begin(), prev.end(), 0LL) % mod;
+        int ans = 0;
+        for(auto &i : prev){
+            ans = (ans + i)%mod;
+        }
+        return ans;
         
     }
 };
